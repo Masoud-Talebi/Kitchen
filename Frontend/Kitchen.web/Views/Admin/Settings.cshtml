@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Orders";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div id="Setting" class="row">
+
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Setting/Index", function (html) {
+            $("#Setting").html(html);
+        });
+
+    });
+</script>

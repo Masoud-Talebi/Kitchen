@@ -1,0 +1,13 @@
+@model IEnumerable<CategoryDTO>
+
+@foreach (var item in Model)
+{
+    <div class="box">
+        <img class="image" src="@item.Image" alt="">
+        <div class="content">
+            <img src="@item.svg" alt="">
+            <h3>@item.Title</h3>
+            <p>@item.Description</p>
+        </div>
+    </div>
+}

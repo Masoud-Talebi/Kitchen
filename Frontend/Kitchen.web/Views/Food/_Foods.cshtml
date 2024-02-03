@@ -1,0 +1,25 @@
+@model IEnumerable<FoodDTO>
+@foreach (var item in Model)
+{
+    <div class="box">
+        <img src="@item.Image" alt="">
+        <div class="content">
+            <h3>@item.Title</h3>
+            <p>@item.Description</p>
+            @{
+                string btnId = "addtobaske" + @item.Id;
+            }
+            <a id="@btnId" onclick="addToBaske(@item.Id)" class="btn">افزودن به سبد خرید</a>
+        </div>
+    </div>
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    function addToBaske(foodid) {
+        $.get("/Basket/SetBasket?FoodId=" + foodid, function (res) {
+            if (res == "Home/LoginOrRigester") { window.location.href = res; }
+            else { $("#addtobaske"+foodid).text(res); }
+
+        });
+    }
+</script>

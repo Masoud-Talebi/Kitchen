@@ -1,0 +1,59 @@
+@model IEnumerable<OrderDTO>
+
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Orders</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> OrderId </th>
+                            <th> User Phone </th>
+                            <th> OrderStatus </th>
+                            <th> Order Adress</th>
+                            <th> Payment Status </th>
+                            <th> More </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>
+                                    <img src="/assets/person.jpg" alt="image" />
+                                    <span class="pl-2">@item.UserPhone</span>
+                                </td>
+                                <td>
+                                    @if (item.OrderStatus == OrderStatus.Pending)
+                                    {
+                                        <span class="badge badge-outline-warning">Pending</span>
+                                    }
+                                </td>
+                                <td>@item.Adress</td>
+                                <td>
+                                    @if (item.StatePay == StatePay.IsPay)
+                                    {
+                                        <div class="badge badge-outline-success">Is Pay</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-outline-danger">No Pay</div>
+                                    }
+
+                                </td>
+                                <td>
+                                    <a asp-controller="Admin" asp-action="OrderForm" asp-route-OrderId="@item.Id">
+                                        <div class="badge badge-outline-primary">View</div>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+@model IEnumerable<FoodDTO>
+@{
+    ViewData["Title"] = "GetFoodByCategory";
+}
+
+<head>
+    <style>
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 0;
+            outline: 0;
+            width: 20em;
+            height: 3em;
+            padding: 0 4em 0 1em;
+            background: url("https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg") no-repeat right 0.8em center/1.4em, linear-gradient(to left, rgba(0, 0, 0, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em);
+            border-radius: 8px;
+            box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        select option {
+            color: inherit;
+        }
+
+        select:focus {
+            outline: none;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        .fas {
+            color: gold;
+            font-size: 1.7rem;
+            padding: 1rem 0.1rem;
+        }
+
+        .far {
+            color: gold;
+            font-size: 1.7rem;
+            padding: 1rem 0.1rem;
+        }
+    </style>
+</head>
+<section class="gallery" style="margin-top:7%;margin-bottom:3%;" id="gallery">
+    <select onchange="search()" id="category">
+        <option selected data="0" value="0">انتخاب دسته بندی</option>
+        @foreach (var cats in (IEnumerable<CategoryDTO>)ViewData["Category"])
+        {
+            <option data="@cats.Id" value="@cats.Id">@cats.Title</option>
+
+        }
+    </select>
+    <h1 class="heading"> گالری <span> غذا ها </span> </h1>
+
+    <div id="Foods" class="box-container">
+        @foreach (var item in Model)
+        {
+            <div style="height: 32rem;flex: 1 1 40rem;" style="" class="box">
+                <img src="@item.Image" alt="">
+                <div class="content">
+                    <h3>@item.Title</h3>
+                    <p>@item.Price ریال</p>
+                    <p>@item.Description</p>
+                    <div class="stars">
+                        @{
+                            int noscore = 5 - item.Score;
+                        }
+                        @for (var i = item.Score; i > 0; i--)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        @for (var i = noscore; i > 0; i--)
+                        {
+                            <i class="far fa-star"></i>
+                        }
+                    </div>
+                    @{
+                        string btnId = "addtobasket" + @item.Id;
+                    }
+                    <a id="@btnId" onclick="addToBasket(@item.Id)" class="btn">افزودن به سبد خرید</a>
+                </div>
+            </div>
+        }
+    </div>
+
+</section>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    function search() {
+        console.log("Searching...");
+        var cat = document.getElementById("category").value;
+        window.location.href = "/Food/GetFoodByCategory/" + cat
+    }
+
+
+    function addToBasket(foodid) {
+        $.get("/Basket/SetBasket?FoodId=" + foodid, function (res) {
+            if (res == "Home/LoginOrRigester") { window.location.href = "/../" + res; }
+            else { $("#addtobasket" + foodid).text(res); }
+
+        });
+    }
+
+</script>

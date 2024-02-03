@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CommentDTO>
+
+@foreach (var item in @Model)
+{
+    <div class="box">
+        <img src="images/pic1.png" alt="">
+        <h3>@item.User.FullName</h3>
+        <div class="stars">
+            @{
+                int noscore = 5 - item.Score;
+            }
+            @for (var i = item.Score; i > 0; i--)
+            {
+                <i class="fas fa-star"></i>
+            }
+            @for (var i = noscore; i > 0; i--)
+            {
+                <i class="far fa-star"></i>
+            }
+
+        </div>
+        <p>@item.Deccription</p>
+    </div>
+}

@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Category";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div id="Categoryss" class="row">
+
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Category/Index", function (html) {
+            $("#Categoryss").html(html);
+        });
+
+    });
+    function GetAllCategory(search) {
+        $.get("/Category/Index?search=" + search, function (html) {
+            $("#Categoryss").html(html);
+        });
+    }
+</script>

@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Users";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div id="Users" class="row">
+
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Home/GetAllUsers", function (html) {
+            $("#Users").html(html);
+        });
+
+    });
+
+</script>

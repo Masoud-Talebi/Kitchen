@@ -1,0 +1,95 @@
+@model OrderDTO
+@{
+    ViewData["Title"] = "OrderForm";
+}
+
+<div class="card-body">
+    <form asp-route-Id="@Model.Id" asp-controller="Order" asp-action="CompliteOrder" method="post" class="forms-sample">
+        <h4 class="card-title">Order</h4>
+        <input name="Id" asp-for="Id" style="background: #2A3038;" disabled type="email" value="@Model.Id" class="form-control"
+            id="exampleInputEmail1">
+        <br>
+
+        <div class="form-group">
+            <label for="exampleInputUsername1">User Phone</label>
+            <input style="background: #2A3038;" disabled type="text" value="@Model.UserPhone" class="form-control"
+                id="exampleInputUsername1" placeholder="User Phone">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputUsername1">Date Time</label>
+            <input dir="rtl" style="background: #2A3038;text-align: left;" disabled type="text" value="@Model.PersianCreated" class="form-control"
+                id="exampleInputUsername1" placeholder="User Phone">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Order Address</label>
+            <input name="Adress" style="background: #2A3038;" disabled type="email" value="@Model.Adress"
+                class="form-control" id="exampleInputEmail1" placeholder="Address">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Pay Status</label>
+            <br>
+            @if (Model.StatePay == StatePay.IsPay)
+            {
+                <div class="badge badge-outline-success">Is Pay</div>
+            }
+            else
+            {
+                <div class="badge badge-outline-danger">No Pay</div>
+            }
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Order Status</label>
+            <br>
+            <div class="dropdown">
+                <select name="Orderstatus" class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @if (Model.OrderStatus == OrderStatus.Pending)
+                    {
+                        <option value="@OrderStatus.Failed">@OrderStatus.Failed</option>
+                        <option value="@OrderStatus.Sending">@OrderStatus.Sending</option>
+                        <option value="@OrderStatus.Complited">@OrderStatus.Complited</option>
+                        <option selected value="@OrderStatus.Pending">@OrderStatus.Pending</option>
+                    }
+                    else if (Model.OrderStatus == OrderStatus.Complited)
+                    {
+                        <option value="@OrderStatus.Failed">@OrderStatus.Failed</option>
+                        <option value="@OrderStatus.Sending">@OrderStatus.Sending</option>
+                        <option selected value="@OrderStatus.Complited">@OrderStatus.Complited</option>
+                        <option value="@OrderStatus.Pending">@OrderStatus.Pending</option>
+                    }
+                    else if (Model.OrderStatus == OrderStatus.Sending)
+                    {
+                        <option value="@OrderStatus.Failed">@OrderStatus.Failed</option>
+                        <option selected value="@OrderStatus.Sending">@OrderStatus.Sending</option>
+                        <option value="@OrderStatus.Complited">@OrderStatus.Complited</option>
+                        <option value="@OrderStatus.Pending">@OrderStatus.Pending</option>
+                    }
+                    else
+                    {
+                        <option selected value="@OrderStatus.Failed">@OrderStatus.Failed</option>
+                        <option value="@OrderStatus.Sending">@OrderStatus.Sending</option>
+                        <option value="@OrderStatus.Complited">@OrderStatus.Complited</option>
+                        <option value="@OrderStatus.Pending">@OrderStatus.Pending</option>
+                    }
+
+                </select>
+
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Order Items</label>
+            <br>
+            @foreach (var i in Model.OrderItems)
+            {
+                <div class="badge badge-outline-primary">
+                    @i.FoodTitle
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+    </form>
+</div>

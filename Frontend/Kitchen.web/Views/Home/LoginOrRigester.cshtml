@@ -1,0 +1,72 @@
+@model string
+<link rel="stylesheet" href="~/css/Loginpanel.css" asp-append-version="true">
+<div class="main">
+    <div class="form-box">
+        <div class="button-box">
+            <div id="btn"></div>
+            <button id="btn_rigester" style="color: #555;" type="button" class="toggle-btn" onclick="register()">ثبت
+                نام</button>
+            <button id="btn_login" style="color: white;" type="button" class="toggle-btn"
+                onclick="login()">ورود</button>
+        </div>
+        <form id="Login" class="input-group" asp-action="Login" method="post">
+            <br> <br>
+            <input type="text" name="phone" class="İnput-field" placeholder="شماره مبایل" required>
+            <input type="password" name="Password" class="İnput-field" placeholder="پسورد" required>
+            <p style="color:red;font-size:15px">@Model</p>
+            <button style="margin-top: 20%;" type="submit" class="submit-btn">ورود</button>
+        </form>
+        <form id="Register" class="input-group" asp-action="Rigester" method="post">
+            <br> <br>
+            <input name="FirstName" type="text" class="İnput-field" placeholder="نام" required>
+            <input name="LastName" type="text" class="İnput-field" placeholder="نام خانوادگی" required>
+            <input onchange="phonvalidation()" id="phone" name="Phone" type="text" class="İnput-field"
+                placeholder="شماره مبایل" required>
+            <p style="color: red;" id="phonecalidation"></p>
+            <input name="Password" type="password" class="İnput-field" placeholder="پسورد" required>
+            <button id="subform" type="submit" class="submit-btn">ثبت نام</button>
+            <button style="cursor: default;" id="subformdisablsed"
+                disabled class="submit-btn"> ثبت نام</button>
+        </form>
+    </div>
+</div>
+<script>
+    var x = document.getElementById("Login");
+    var z = document.getElementById("Register");
+    var y = document.getElementById("btn");
+    var btn_login = document.getElementById("btn_login");
+    var btn_rigester = document.getElementById("btn_rigester");
+
+    function register() {
+        console.log("Register");
+        x.style.left = "-400px"
+        z.style.left = "50px";
+        y.style.left = "110px";
+        btn_rigester.style.color = "white"
+        btn_login.style.color = "#555"
+    }
+    function login() {
+        x.style.left = "50px"
+        z.style.left = "450px";
+        y.style.left = "0px";
+        btn_rigester.style.color = "#555"
+        btn_login.style.color = "white"
+    }
+    function phonvalidation() {
+        document.getElementById("subformdisablsed").style.display = "none";
+        document.getElementById("subformdisablsed").style.backgroundColor = "white"
+        var phone = document.getElementById("phone").value;
+        var regex = new RegExp('^(\\+98|0)?9\\d{9}$');
+        var result = regex.test(phone);
+        if (result != true) {
+            document.getElementById("phonecalidation").innerHTML = "شماره مبایل صحیح نمی باشد";
+            document.getElementById("subform").style.display = "none";
+            document.getElementById("subformdisablsed").style.display = "block"
+        } else {
+            document.getElementById("phonecalidation").innerHTML = "";
+            document.getElementById("subformdisablsed").style.display = "none"
+            document.getElementById("subform").style.display = "block";
+        }
+        console.log(result);
+    }
+</script>

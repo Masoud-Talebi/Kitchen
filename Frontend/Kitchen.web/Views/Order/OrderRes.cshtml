@@ -1,0 +1,35 @@
+﻿@model OrderDTO
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرداخت</title>
+    <link rel="stylesheet" href="~/css/OrderRes.css">
+</head>
+
+<section>
+    <main>
+        <a href="">
+            <img src="http://localhost:5235/images/home-img.png" id="logo">
+        </a>
+        <h1>پرداخت حساب شماره : <span>@Model.Id</span></h1>
+        @if (Model.StatePay == StatePay.NotPay)
+        {
+            <p class="text-danger">عملیات خرید با خطا مواجه شد.</p>
+        }
+        else
+        {
+            <p class="text-success" style="color:green">عملیات خرید با موفقیت انجام شد.</p>
+        }
+
+        <hr>
+        @if (Model.StatePay == StatePay.NotPay)
+        {
+            <a class="btn btn-primary btn-wide" href="https://recharge.snapp.ir">تلاش مجدد</a>
+        }
+
+    </main>
+</section>

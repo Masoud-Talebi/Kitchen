@@ -1,0 +1,73 @@
+@model ShopingCart
+@{
+    ViewData["Title"] = "CheckoutOrder";
+}
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/CheckoutOrder.css">
+    <title>CheckoutOrder</title>
+</head>
+<div class='container'>
+    <div class='window'>
+        <div class='order-info'>
+            <div class='order-info-content'>
+                <h2>Order Summary</h2>
+                <div class='line'></div>
+                @foreach (var item in @Model.Items)
+                {
+                    <table class='order-table'>
+                        <tbody>
+                            <tr>
+                                <td><img src='@item.Image' class='full-width'></img>
+                                </td>
+                                <td>
+                                    <br> <span class='thin'>@item.FoodTitle</span>
+                                    <br> <span class='thin small'> تعداد : @item.Quantity</span><br> <span
+                                        class='thin small'> @item.Description<br><br></span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class='price'>@item.Price</div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <div class='line'></div>
+                }
+
+                <div class='total'>
+                    <span style='float:left;'>
+                        <div class='thin dense'>هزینه غذا ها</div>
+                        <div class='thin dense'>هزینه ارسال</div>
+                    </span>
+                    @{
+                        var total = Model.TotalPric + int.Parse(ViewData["PriceForSending"].ToString());
+                    }
+                    <span style='float:right; text-align:right;'>
+                        <div class='thin dense'>@Model.TotalPric</div>
+                        <div class='thin dense'>@ViewData["PriceForSending"].ToString() </div>
+                        @total
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class='credit-info'>
+            <form asp-action="AddOrder" method="post">
+                <div class='credit-info-content'>
+                    <img src='~/images/home-img.png' height='80' class='credit-card-image' id='credit-card-image'></img>
+                    آدرس محل تحویل
+                    <input required asp-for=Adress class='input-field' value="@Model.Adress">
+                    <input disabled value="@ViewData["User"]" class='input-field'>
+                    <button style="right: 25px;" type="submit" class='pay-btn'>ساخت سفارش</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

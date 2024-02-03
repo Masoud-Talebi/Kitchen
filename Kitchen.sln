@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{B64EE477-399B-4718-8A5D-9C00EADB3E0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitchen.web", "frontend\kitchen.web\Kitchen.web.csproj", "{18C43C0D-DE48-4738-ACC4-3309CCD46DD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{BC8B6318-F12E-4E9E-B279-F19D9F6A64A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitchen.api", "Backend\Kitchen.api\Kitchen.api.csproj", "{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18C43C0D-DE48-4738-ACC4-3309CCD46DD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C43C0D-DE48-4738-ACC4-3309CCD46DD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C43C0D-DE48-4738-ACC4-3309CCD46DD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C43C0D-DE48-4738-ACC4-3309CCD46DD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18C43C0D-DE48-4738-ACC4-3309CCD46DD9} = {B64EE477-399B-4718-8A5D-9C00EADB3E0D}
+		{ADAF8584-3100-4606-B1D4-9A1BD1D18D2C} = {BC8B6318-F12E-4E9E-B279-F19D9F6A64A6}
+	EndGlobalSection
+EndGlobal

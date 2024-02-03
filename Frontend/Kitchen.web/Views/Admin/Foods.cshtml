@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Foods";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div id="Foods" class="row">
+
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Food/Index", function (html) {
+            $("#Foods").html(html);
+        });
+
+    });
+    function GetAllCategory(search) {
+        $.get("/Food/Index?search=" + search, function (html) {
+            $("#Foods").html(html);
+        });
+    }
+</script>

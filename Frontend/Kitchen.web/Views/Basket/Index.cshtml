@@ -1,0 +1,84 @@
+@model ShopingCart
+
+<head>
+    <link rel="stylesheet" href="~/css/Basket.css">
+
+</head>
+<div style="margin-top: 10%;width: 70%;overflow: auto;" class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+        Shopping Bag
+    </div>
+    @foreach (var item in Model.Items)
+    {
+        <div class="item">
+            <div class="buttons">
+                <a asp-action="DeleteBasket" asp-route-foodId="@item.FoodId" asp class="delete-btn"></a>
+            </div>
+
+            <div class="image">
+                <img style="width: 150px;height: 110px;" src="@item.Image" alt="" />
+            </div>
+
+            <div class="description">
+                <span>@item.FoodTitle</span>
+                <span>@item.Description</span>
+            </div>
+
+            <div style="display:flex;" class="quantity">
+                <a asp-action="AddQuantity" asp-route-FoodId="@item.FoodId" class="plus-btn btn_quantity" name="button">
+                    <img style="margin-right:10px;margin-top:10px;" src="~/css/plus.svg" alt="" />
+                </a>
+                <input style="margin-bottom:30px" type="text" name="name" value="@item.Quantity">
+                <a asp-action="DeleteQuantity" asp-route-FoodId="@item.FoodId" class="minus-btn btn_quantity" name="button">
+                    <img style="margin-right:10px;margin-top:13px;" src="~/css/minus.svg" alt="" />
+                </a>
+            </div>
+
+            <div class="total-price">@item.Price</div>
+        </div>
+
+    }
+
+</div>
+<div class="btn_endorderdiv">
+    <a asp-controller="Order" asp-action="CheckoutOrder"  style=" cursor: pointer;margin-right: 15px;width: 20%;text-align: center;"
+        class="btn_endorder"> تکمیل خرید </a>
+    <div class="btn_endorder">@Model.TotalPric ریال</div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $('.like-btn').on('click', function () {
+        $(this).toggleClass('is-active');
+    });
+    $('.minus-btn').on('click', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+
+        if (value & amp; amp; gt; 1) {
+        value = value - 1;
+    } else {
+        value = 0;
+    }
+
+    $input.val(value);
+
+});
+    $('.plus-btn').on('click', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+
+        if (value & amp; amp; lt; 100) {
+        value = value + 1;
+    } else {
+        value = 100;
+    }
+
+    $input.val(value);
+});
+</script>

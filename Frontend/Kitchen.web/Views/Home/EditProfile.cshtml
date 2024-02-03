@@ -1,0 +1,106 @@
+@model UserDTO
+@{
+    ViewData["Title"] = "EditProfile";
+}
+<style>
+    h1 {
+        text-align: center;
+        margin: 5px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+        text-align: center;
+        margin: 10px;
+    }
+
+    button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    a {
+        text-decoration: none;
+        font-size: 22px;
+        color: black;
+    }
+
+    button:hover,
+    a:hover {
+        opacity: 0.7;
+    }
+
+    .navbar {
+        display: block;
+    }
+
+    input {
+        padding: 0.5rem;
+        margin: 4px;
+        font-size: 1.7rem;
+        color: #333;
+        text-transform: none;
+        border: 0.1rem solid rgba(0, 0, 0, .3);
+        border-radius: 0.5rem;
+        width: 80%;
+
+    }
+
+    textarea {
+        padding: 1rem;
+        margin: 1rem 0;
+        font-size: 1.7rem;
+        color: #333;
+        text-transform: none;
+        border: 0.1rem solid rgba(0, 0, 0, .3);
+        border-radius: 0.5rem;
+        width: 80%;
+        resize: none;
+        height: 15rem;
+
+    }
+</style>
+<form asp-action="UpdateUser" method="post">
+    <div style="margin-top:8%;margin-bottom:1%" class="card">
+        <br>
+        <br>
+        @{
+            var FullName = @Model.FullName.Split();
+            string firstName = "";
+            string LastName = "";
+            firstName = FullName[0];
+            LastName = FullName[1];
+
+
+        }
+        <div style="margin: 10px;text-align: center;">
+            <input name="Id" type="text" style="display:none" value="@Model.Id">
+            <input placeholder="نام" name="FirstName" type="text" value="@firstName" required>
+            <input placeholder="نام خانوادگی" name="LastName" type="text" value="@LastName" required>
+            <input placeholder="شماره تلفن" name="Phone" type="text" value="@Model.Phone" required>
+            <input placeholder="ایمیل" name="Email" type="text" value="@Model.Email">
+            <input placeholder="پسورد" name="Password" type="text" value="@Model.Password" required>
+            <textarea placeholder="ادرس" name="Address" type="text" required>@Model.Address </textarea>
+
+        </div>
+
+        <p><button type="submit" style="btn_edit">ویرایش پروفایل</button></p>
+    </div>
+</form>

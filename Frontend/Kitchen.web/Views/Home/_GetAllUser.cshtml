@@ -1,0 +1,77 @@
+@model IEnumerable<UserDTO>
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+
+            <h4 class="card-title">Users</h4>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Id </th>
+                            <th> Full Name</th>
+                            <th> Email </th>
+                            <th> Phone</th>
+                            <th> Address </th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+
+                                <td>
+                                    <img src="/assets/person.jpg" alt="image" />
+                                    <span class="pl-2">@item.FullName</span>
+
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Address</td>
+                                <td>@item.Password</td>
+                                <td>@item.Role</td>
+
+                                <td>
+                                    <a asp-controller="Home" asp-action="RemoveUser" asp-route-Id="@item.Id">
+                                        <div class="badge badge-outline-danger">Remove</div>
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <form asp-controller="Home" asp-action="UpdateRoleUser" asp-route-Id="@item.Id">
+                                        <select name="Role" class="btn btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            @if (item.Role == "Admin")
+                                            {
+                                                <option selected value="Admin">Admin</option>
+                                                <option value="User">User</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Admin">Admin</option>
+                                                <option selected value="User">User</option>
+                                            }
+                                        </select>
+                                        <button
+                                            style="background-color: #0090e7;padding: 10px;border: none;border-radius: 7px;color: white;"
+                                            type="submit">Submit</button>
+
+                                    </form>
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

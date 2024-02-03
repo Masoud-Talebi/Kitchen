@@ -1,0 +1,74 @@
+@model IEnumerable<CommentDTO>
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+
+            <h4 class="card-title">Comments</h4>
+
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Id </th>
+                            <th> User Name</th>
+                            <th> User Phone </th>
+                            <th> Score</th>
+                            <th> Description </th>
+                            <th> Status</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+
+                                <td>
+                                    <img src="/assets/person.jpg" alt="image" />
+                                    <span class="pl-2">@item.User.FullName</span>
+                                </td>
+                                <td>@item.User.Phone</td>
+                                <td>
+                                    @{
+                                        int noscore = 5 - item.Score;
+                                    }
+                                    @for (var i = item.Score; i > 0; i--)
+                                    {
+                                        <i class="mdi mdi-star"></i>
+                                    }
+                                    @for (var i = noscore; i > 0; i--)
+                                    {
+                                        <i class="mdi mdi-star-outline"></i>
+                                    }
+                                </td>
+                                <td>@item.Deccription</td>
+                                <td>
+
+                                    @if (item.Accepted == true)
+                                    {
+                                        <div class="badge badge-outline-success ">Accept</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-outline-danger">No Accept</div>
+                                    }
+                                </td>
+
+                                <td>
+                                    <a asp-controller="Comment" asp-action="AcceptComment" asp-route-Id="@item.Id">
+                                        <div class="badge badge-outline-primary ">Accept</div>
+                                    </a><a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@item.Id">
+                                        <div class="badge badge-outline-danger ">Delete</div>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

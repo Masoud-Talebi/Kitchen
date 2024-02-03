@@ -1,0 +1,138 @@
+﻿<section class="home" id="home">
+
+    <div class="content">
+        <h3>به رستوران نت خوش امدید</h3>
+        <p>امید وارم از رستوران ما لذت ببرید</p>
+        <a href="#popular" class="btn">اکنون سفارش دهید</a>
+    </div>
+
+    <div class="image">
+        <img src="images/home-img.png" alt="">
+    </div>
+
+</section>
+
+<section class="speciality" id="speciality">
+
+    <h1 class="heading"><span>گروه های</span> غذایی</h1>
+
+    <div id="Categorys" class="box-container">
+
+    </div>
+
+</section>
+<section class="popular" id="popular">
+
+    <h1 class="heading"> <span>محبوب</span> ترین غذا ها </h1>
+
+    <div id="SpecialFoods" class="box-container">
+
+
+    </div>
+
+</section>
+
+<!-- popular section ends -->
+
+<!-- steps section starts  -->
+
+<div class="step-container">
+
+    <h1 class="heading"> چگونه <span>کار</span> میکند </h1>
+
+    <section class="steps">
+
+        <div class="box">
+            <img src="images/step-1.jpg" alt="">
+            <h3>غذای خود را انتخاب کنید</h3>
+        </div>
+        <div class="box">
+            <img src="images/step-2.jpg" alt="">
+            <h3>تحویل رایگان و سریع</h3>
+        </div>
+        <div class="box">
+            <img src="images/step-3.jpg" alt="">
+            <h3>روش های پرداخت آسان</h3>
+        </div>
+        <div class="box">
+            <img src="images/step-4.jpg" alt="">
+            <h3>و در آخر ، از غذای خود لذت ببرید</h3>
+        </div>
+
+    </section>
+
+</div>
+
+<!-- steps section ends -->
+
+<!-- gallery section starts  -->
+
+<section class="gallery" id="gallery">
+
+    <h1 class="heading"> گالری <span> غذا ها </span> </h1>
+
+    <div id="Foods" class="box-container">
+
+    </div>
+
+</section>
+
+<section class="review" id="review">
+
+    <h1 class="heading"> بازخورد <span>مشتریان</span> </h1>
+
+    <div id="AllComments" class="box-container"></div>
+
+</section>
+<link rel="stylesheet" href="~/css/Scorestyle.css">
+<section class="order" id="order">
+
+    <h1 class="heading"> <span>ثبت</span> نظر </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="images/order-img.jpg" alt="">
+        </div>
+
+        <form asp-controller="Comment" asp-action="AddComment" method="post">
+
+            @if (ViewData["User"] == null)
+            {
+                <h1 style="text-align: center;margin-top: 10%;">برای ثبت نظر وارد شوید</h1>
+            }
+            else
+            {
+                <div class="inputBox">
+                    <input required max="5" name="Score" type="number" placeholder="امتیاز">
+                </div>
+                <textarea required name="Deccription" placeholder="توضیحات" id="" cols="30" rows="10"></textarea>
+
+                <input type="submit" value="ثبت نظر" class="btn">
+            }
+
+        </form>
+
+    </div>
+
+</section>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Comment/GetAllComments", function (html) {
+            $("#AllComments").html(html);
+        });
+        $.get("/Category/GetAllCategory", function (html) {
+            $("#Categorys").html(html);
+        });
+        $.get("/Food/GetAllFood", function (html) {
+            $("#Foods").html(html);
+        });
+        $.get("/Food/GetAllspecialFood", function (html) {
+            $("#SpecialFoods").html(html);
+        });
+    });
+
+
+
+</script>

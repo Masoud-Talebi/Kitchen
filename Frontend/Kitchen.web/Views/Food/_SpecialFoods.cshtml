@@ -1,0 +1,36 @@
+@model IEnumerable<FoodDTO>
+@foreach (var item in Model)
+{
+    <div class="box">
+        <span class="price"> @item.Price &#xFDFC; </span>
+        <img src="@item.Image" alt="">
+        <h3>@item.Title</h3>
+        <div class="stars">
+            @{
+                int noscore = 5 - item.Score;
+            }
+            @for (var i = item.Score; i > 0; i--)
+            {
+                <i class="fas fa-star"></i>
+            }
+            @for (var i = noscore; i > 0; i--)
+            {
+                <i class="far fa-star"></i>
+            }
+        </div>
+        @{
+            string btnId = "addtobasket" + @item.Id;
+        }
+        <a id="@btnId" onclick="addToBasket(@item.Id)" class="btn">افزودن به سبد خرید</a>
+    </div>
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    function addToBasket(foodid) {
+        $.get("/Basket/SetBasket?FoodId=" + foodid, function (res) {
+            if (res == "Home/LoginOrRigester") { window.location.href = res; }
+            else { $("#addtobasket"+foodid).text(res); }
+
+        });
+    }
+</script>

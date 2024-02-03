@@ -1,0 +1,30 @@
+@model SettingDTO
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Setting</h4>
+        <form  asp-controller="Setting" asp-action="UpdateSetting" class="form-sample" method="post">
+            <div class="row"> 
+                <div class="col-md-7">
+                    <div class="form-group row">
+                        <label class="col-sm-7 col-form-label">User Count Comment</label>
+                        <div class="col-sm-4">
+                            <input style="display:none" asp-for="Id" name="Id" type="text" value="@Model.Id" class="form-control">
+                            <input asp-for="UserComment" name="UserComment" type="text" value="@Model.UserComment" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group row">
+                        <label class="col-sm-7 col-form-label">Price Fore Sender</label>
+                        <div class="col-sm-4">
+                            <input asp-for="PriceForSending" name="PriceForSending" type="text" value="@Model.PriceForSending"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+    </div>
+</div>

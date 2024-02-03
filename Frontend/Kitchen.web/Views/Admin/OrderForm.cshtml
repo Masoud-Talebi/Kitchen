@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "OrderForm";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div id="Order" class="card">
+
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $.get("/Order/OrderForm?OrderId=" + @ViewData["OrderId"] , function (html) {
+            $("#Order").html(html);
+        });
+
+    });
+</script>
