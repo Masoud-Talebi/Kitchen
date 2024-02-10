@@ -4,8 +4,8 @@
         <div class="card-body">
             <div style="display: flex;">
                 <h4 class="card-title">Foods</h4>
-                <a style="position: absolute;right: 15%;" href="">
-                    <div class="badge badge-outline-success">Create Category</div>
+                <a asp-controller="Admin" asp-action="AddFood" style="position: absolute;right: 15%;">
+                    <div class="badge badge-outline-success">Create Food</div>
                 </a>
             </div>
             <div class="table-responsive">
@@ -39,19 +39,36 @@
 
 
                                         <div class="badge badge-outline-primary">
-                                            <a style="width: 20px;display: inline-block;text-align: left;" class="mdi mdi-close"
-                                                href=""></a>
+                                            <a asp-action="DeleteFoodCategory" asp-controller="Food" asp-route-CatId="@i.Id"
+                                                asp-route-FoodId="@item.Id"
+                                                style="width: 20px;display: inline-block;text-align: left;"
+                                                class="mdi mdi-close"></a>
                                             @i.Title
                                         </div>
 
                                     }
+
+                                </td>
+                                <td>
+                                    <select onchange="addcategory(@item.Id)" name="Role"
+                                        @{
+                                            string selectid = "dropdownMenuButton1"+item.Id;
+                                        }
+                                        class="btn btn-primary dropdown-toggle" type="button" id="@selectid"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <option selected="" value="Admin">Select Category</option>
+                                        @foreach (var cat in (IEnumerable<CategoryDTO>)ViewData["Category"])
+                                        {
+                                            <option value="@cat.Id">@cat.Title</option>
+                                        }
+                                    </select>
                                 </td>
 
                                 <td>
-                                    <a asp-route-OrderId="@item.Id">
+                                    <a asp-action="DeleteFood" asp-controller="Food" asp-route-Id="@item.Id">
                                         <div class="badge badge-outline-danger">Remove</div>
                                     </a>
-                                    <a asp-route-OrderId="@item.Id">
+                                    <a asp-action="UpdateFood" asp-controller="Admin" asp-route-Id="@item.Id">
                                         <div class="badge badge-outline-primary">Update</div>
                                     </a>
                                 </td>
@@ -64,3 +81,14 @@
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    function addcategory(foodid) {
+        var catid = document.getElementById(`dropdownMenuButton1${foodid}`).value
+        $.get("/Food/AddFoodCategory?CatId=" + catid + "&FoodId=" + foodid, function (html) {
+            location.reload();
+        });
+
+    }
+</script>

@@ -12,21 +12,31 @@ public class FoodService : BaseService, IFoodService
 
     public async Task<T> AddFood<T>(AddFoodDTO AddFood, string AccessToken)
     {
+        string CategoryIds = "";
+        foreach (var item in AddFood.CategoryIds)
+        {
+            CategoryIds += $"&CategoryIds={item}";
+        }
         return await this.Send<T>(new ApiRequest
         {
             ApiType = SD.ApiType.POST,
-            Url = SD.KitchenApiBase + "/api/Food",
-            Data = AddFood,
+            Url = SD.KitchenApiBase + $"/api/Food?Title={AddFood.Title}&Description={AddFood.Description}&Price={AddFood.Price}&Score={AddFood.Score}{CategoryIds}",
+            Image = AddFood.Image,
             AccessToken = AccessToken
         });
     }
 
     public async Task<T> AddFoodCategory<T>(List<int> CategoryId, int FoodId, string AccessToken)
     {
+        string Category = "";
+        foreach (var item in CategoryId)
+        {
+            Category += $"&categoryId={item}";
+        }
         return await this.Send<T>(new ApiRequest
         {
             ApiType = SD.ApiType.POST,
-            Url = SD.KitchenApiBase + "/api/Food/AddFoodCategory?FoodId=" + FoodId,
+            Url = SD.KitchenApiBase + $"/api/Food/AddFoodCategory?FoodId={FoodId}{Category}",
             Data = CategoryId,
             AccessToken = AccessToken
         });
@@ -36,7 +46,7 @@ public class FoodService : BaseService, IFoodService
     {
         return await this.Send<T>(new ApiRequest
         {
-            ApiType = SD.ApiType.POST,
+            ApiType = SD.ApiType.DELETE,
             Url = SD.KitchenApiBase + "/api/Food/RemoveFoodCategory/" + FoodId + "/" + CategoryId,
             AccessToken = AccessToken
         });
@@ -66,7 +76,7 @@ public class FoodService : BaseService, IFoodService
     {
         return await this.Send<T>(new ApiRequest
         {
-            ApiType = SD.ApiType.POST,
+            ApiType = SD.ApiType.DELETE,
             Url = SD.KitchenApiBase + "/api/Food?Id=" + Id,
             AccessToken = AccessToken
         });
@@ -76,9 +86,9 @@ public class FoodService : BaseService, IFoodService
     {
         return await this.Send<T>(new ApiRequest
         {
-            ApiType = SD.ApiType.POST,
-            Url = SD.KitchenApiBase + "/api/Food",
-            Data = updateFood,
+            ApiType = SD.ApiType.PUT,
+            Url = SD.KitchenApiBase + $"/api/Food?Id={updateFood.Id}&Title={updateFood.Title}&Description={updateFood.Description}&Price={updateFood.Price}&Score={updateFood.Score}",
+            Image = updateFood.Image,
             AccessToken = AccessToken
         });
     }

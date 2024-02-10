@@ -9,6 +9,10 @@
   <!-- plugins:css -->
   <link rel="stylesheet" href="~/assets/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="~/assets/vendors/css/vendor.bundle.base.css">
+
+  <link rel="stylesheet" href="~/assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <link rel="stylesheet" href="~/assets/vendors/select2/select2.min.css">
+  <link rel="shortcut icon" href="~/assets/images/favicon.png">
   <!-- Layout styles -->
   <link rel="stylesheet" href="~/assets/css/style.css">
   <!-- End layout styles -->
@@ -41,7 +45,7 @@
           <span class="nav-link">Navigation</span>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="../Admin">
+          <a class="nav-link" href="../../admin">
             <span class="menu-icon">
               <i class="mdi mdi-speedometer"></i>
             </span>
@@ -58,13 +62,13 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="../aDmin/Foods">Food</a></li>
-              <li class="nav-item"> <a class="nav-link" href="../admin/categorys">Category</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../aDmin/Foods">Food</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../adMIN/categorys">Category</a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="../adMin/Settings">
+          <a class="nav-link" href="../../adMin/Settings">
             <span class="menu-icon">
               <i class="mdi mdi-settings"></i>
             </span>
@@ -72,7 +76,7 @@
           </a>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="../admIn/Orders">
+          <a class="nav-link" href="../../admIn/Orders">
             <span class="menu-icon">
               <i class="mdi mdi-chart-bar"></i>
             </span>
@@ -80,7 +84,7 @@
           </a>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="../admIn/Users">
+          <a class="nav-link" href="../../admIn/Users">
             <span class="menu-icon">
               <i class="mdi mdi-contacts"></i>
             </span>
@@ -88,7 +92,7 @@
           </a>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="../ADMIN/Comments">
+          <a class="nav-link" href="../../ADMIN/Comments">
             <span class="menu-icon">
               <i class="mdi mdi-file-document-box"></i>
             </span>
@@ -174,6 +178,8 @@
   <!-- plugins:js -->
   <script src="~/assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
+  <script src="~/assets/vendors/select2/select2.min.js"></script>
+  <script src="~/assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
   <!-- Plugin js for this page -->
   <script src="~/assets/vendors/chart.js/Chart.min.js"></script>
   <script src="~/assets/vendors/progressbar.js/progressbar.min.js"></script>
@@ -191,6 +197,10 @@
   <!-- Custom js for this page -->
   <script src="~/assets/js/dashboard.js"></script>
   <!-- End custom js for this page -->
+  <script src="~/assets/js/file-upload.js"></script>
+  <script src="~/assets/js/typeahead.js"></script>
+  <script src="~/assets/js/select2.js"></script>
+  
   @await RenderSectionAsync("Scripts", required: false)
 </body>
 

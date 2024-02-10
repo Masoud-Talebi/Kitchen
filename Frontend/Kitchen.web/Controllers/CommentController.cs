@@ -31,7 +31,7 @@ namespace MyApp.Namespace
         public async Task<IActionResult> AddComment(AddCommentDTO commentDTO)
         {
             var res = await _service.AddComment<ResponseDTO>(commentDTO, HttpContext.Request.Cookies["token"].ToString());
-            return RedirectToRoute("/Home/Index");
+            return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> GetAllCommentsAdmin()
         {

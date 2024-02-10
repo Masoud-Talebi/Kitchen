@@ -21,12 +21,12 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryDTO> AddCategory(AddCategoryDTO addCategory)
     {
-       
+
         Category category = _mapper.Map<Category>(addCategory);
-        
+
         await _context.Categories.AddAsync(category);
         await _context.SaveChangesAsync();
-         var Imageaddres = await FileSaver.FileSavers(addCategory.Image, "CategoryImage", category.Id);
+        var Imageaddres = await FileSaver.FileSavers(addCategory.Image, "CategoryImage", category.Id);
         var svgaddres = await FileSaver.FileSavers(addCategory.svg, "CategorySVG", category.Id);
         category.Image = Imageaddres;
         category.svg = svgaddres;

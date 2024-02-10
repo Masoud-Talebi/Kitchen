@@ -25,12 +25,12 @@ namespace MyApp.Namespace
         public async Task<ActionResult> UpdateSetting(SettingDTO settingDTO)
         {
             SettingDTO setting = null;
-            var res = await _service.UpdateSetting<ResponseDTO>(settingDTO,HttpContext.Request.Cookies["token"].ToString());
+            var res = await _service.UpdateSetting<ResponseDTO>(settingDTO, HttpContext.Request.Cookies["token"].ToString());
             if (res is not null || res.IsSuccess)
             {
                 setting = JsonConvert.DeserializeObject<SettingDTO>(Convert.ToString(res.Result));
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Settings", "Admin");
         }
 
     }

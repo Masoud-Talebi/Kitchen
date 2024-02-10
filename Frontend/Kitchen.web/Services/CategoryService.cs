@@ -16,7 +16,9 @@ public class CategoryService : BaseService, ICategoryService
         return await this.Send<T>(new ApiRequest
         {
             ApiType = SD.ApiType.POST,
-            Url = SD.KitchenApiBase + "/api/Category",
+            Url = SD.KitchenApiBase + $"/api/Category?Title={addCategory.Title}&Description={addCategory.Description}",
+            Image = addCategory.Image,
+            Svg = addCategory.svg,
             AccessToken = AccessToken
         });
     }
@@ -54,7 +56,9 @@ public class CategoryService : BaseService, ICategoryService
         return await this.Send<T>(new ApiRequest
         {
             ApiType = SD.ApiType.PUT,
-            Url = SD.KitchenApiBase + "/api/Category",
+            Url = SD.KitchenApiBase + $"/api/Category?Id={updateCategory.Id}&Title={updateCategory.Title}&Description={updateCategory.Description}",
+            Image = updateCategory.Image,
+            Svg = updateCategory.svg,
             AccessToken = AccessToken
         });
     }

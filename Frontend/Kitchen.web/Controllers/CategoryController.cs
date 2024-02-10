@@ -1,3 +1,4 @@
+using Kitchen.web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -52,6 +53,24 @@ namespace MyApp.Namespace
             }
             return PartialView("_Category", Categorys);
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory([FromForm] AddCategoryDTO addCategoryDTO)
+        {
+            var response = await _service.AddCategory<ResponseDTO>(addCategoryDTO, HttpContext.Request.Cookies["token"].ToString());
+            return RedirectToAction("Categorys", "Admin");
+        }
+        public async Task<IActionResult> RemoveCategory(int Id)
+        {
+            var response = await _service.RemoveCategory<ResponseDTO>(Id, HttpContext.Request.Cookies["token"].ToString());
+            return RedirectToAction("Categorys", "Admin");
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory([FromForm] UpdateCategoryDTO updateCategory)
+        {
+            var response = await _service.UpdateCategory<ResponseDTO>(updateCategory, HttpContext.Request.Cookies["token"].ToString());
+            return RedirectToAction("Categorys", "Admin");
+        }
+
 
     }
 }

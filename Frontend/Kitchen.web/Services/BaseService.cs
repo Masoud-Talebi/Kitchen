@@ -26,11 +26,30 @@ namespace Kitchen.web.Services
             {
                 var client = httpClientFactory.CreateClient("ShopClient");
                 HttpRequestMessage message = new HttpRequestMessage();
+                var multipartContent = new MultipartFormDataContent();
+
                 message.Headers.Add("Accept", "application/json"); 
                 message.RequestUri = new Uri(apiRequest.Url);
                 if (apiRequest is not null)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                    if (apiRequest.Image != null || apiRequest.Svg != null)
+                    {
+                        if (apiRequest.Image != null)
+                        {
+                            multipartContent.Add(new StreamContent(apiRequest.Image.OpenReadStream()), "Image", apiRequest.Image.FileName);
+                        }
+                        if (apiRequest.Svg != null)
+                        {
+                            multipartContent.Add(new StreamContent(apiRequest.Svg.OpenReadStream()), "svg", apiRequest.Svg.FileName);
+                        }
+                        message.Content = multipartContent;
+                    }
+                     
+                    else
+                    {
+                        message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), Encoding.UTF8, "application/json");
+                    }
+                   
                 }
                 HttpResponseMessage ApiResponse = null;
                 switch (apiRequest.ApiType)

@@ -99,7 +99,7 @@ namespace MyApp.Namespace
             return response;
         }
         [HttpPost("AddFoodCategory")]
-        public async Task<object> AddFoodCategory(int FoodId, List<int> categoryId)
+        public async Task<object> AddFoodCategory(int FoodId, [FromQuery] List<int> categoryId)
         {
             try
             {

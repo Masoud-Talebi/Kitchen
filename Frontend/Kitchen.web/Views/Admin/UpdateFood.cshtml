@@ -1,0 +1,63 @@
+@model FoodDTO
+@{
+    ViewData["Title"] = "UpdateCategory";
+}
+@{
+    Layout = "_AdminLayout";
+}
+<div class="card">
+    <form asp-controller="Food" asp-action="UpdateFood" method="post" enctype="multipart/form-data">
+        <div class="card-body">
+            <h4 class="card-title">Update Food</h4>
+            </p>
+            <div class="form-group">
+                <input style="background-color: #2c2e33;" type="text" name="Id" value="@Model.Id"
+                    class="form-control form-control-lg" placeholder="Title" aria-label="Username" readonly>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="Title" value="@Model.Title" class="form-control form-control-lg"
+                    placeholder="Title" aria-label="Username">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" value="@Model.Description" name="Description" class="form-control"
+                    placeholder="Description" aria-label="Username">
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="text" name="Price" value="@Model.Price" class="form-control" placeholder="Price"
+                    aria-label="Price">
+            </div>
+            <div class="form-group">
+                <label>Score</label>
+                <input type="number" name="Score" value="@Model.Score" class="form-control" placeholder="Score "
+                    aria-label="Score">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" name="Image" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                            <input type="text" class="form-control file-upload-info" disabled=""
+                                placeholder="Upload Image">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <img src="@Model.Image" style="width: 120px;height: 110px;" width="100px"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <button type="submit" class="btn btn-outline-primary btn-fw">Update</button>
+    </form>
+
+</div>

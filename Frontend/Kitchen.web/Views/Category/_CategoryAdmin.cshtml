@@ -4,7 +4,7 @@
         <div class="card-body">
             <div style="display: flex;">
                 <h4 class="card-title">Categorys</h4>
-                <a style="position: absolute;right: 15%;" href="">
+                <a asp-controller="Admin" asp-action="AddCategory" style="position: absolute;right: 15%;">
                     <div class="badge badge-outline-success">Create Category</div>
                 </a>
             </div>
@@ -35,10 +35,10 @@
                                 </td>
                                 <td>@item.Description</td>
                                 <td>
-                                    <a asp-route-OrderId="@item.Id">
+                                    <a asp-controller="Category" asp-action="RemoveCategory" asp-route-Id="@item.Id">
                                         <div class="badge badge-outline-danger">Remove</div>
                                     </a>
-                                    <a asp-route-OrderId="@item.Id">
+                                    <a asp-controller="Admin" asp-action="UpdateCategory" asp-route-Id="@item.Id">
                                         <div class="badge badge-outline-primary">Update</div>
                                     </a>
                                 </td>
