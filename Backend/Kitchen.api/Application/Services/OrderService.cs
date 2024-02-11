@@ -12,9 +12,9 @@ namespace Kitchen.api;
 public class OrderService : IOrderService
 {
     #region Field
-    private readonly SqlserverApplicationContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public OrderService(SqlserverApplicationContext context, IMapper mapper)
+    public OrderService(ApplicationDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

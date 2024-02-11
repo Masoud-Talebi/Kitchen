@@ -13,8 +13,8 @@ namespace MyApp.Namespace
     {
         private readonly ResponseDTO response;
         private readonly IUserService _userService;
-        private readonly SqlserverApplicationContext _context;
-        public UserController(IUserService userService, SqlserverApplicationContext context)
+        private readonly ApplicationDbContext _context;
+        public UserController(IUserService userService, ApplicationDbContext context)
         {
             _userService = userService;
             response = new ResponseDTO();
@@ -38,7 +38,7 @@ namespace MyApp.Namespace
             return response;
 
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize()]
         [HttpGet("{Id}")]
         public async Task<object> GetUserById(int Id)
         {
@@ -61,7 +61,7 @@ namespace MyApp.Namespace
         {
             try
             {
-                
+
                 var userold = await _context.Users.Where(p => p.deleted == false).FirstOrDefaultAsync(p => p.Phone == addUserDTO.Phone);
                 if (userold == null)
                 {

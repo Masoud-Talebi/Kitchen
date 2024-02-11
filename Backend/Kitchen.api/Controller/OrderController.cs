@@ -12,8 +12,8 @@ namespace Kitchen.api.Controller
     {
         private readonly ResponseDTO response;
         private readonly IOrderService _orderService;
-        private readonly SqlserverApplicationContext _context;
-        public OrderController(IOrderService orderervice, SqlserverApplicationContext context)
+        private readonly ApplicationDbContext _context;
+        public OrderController(IOrderService orderervice, ApplicationDbContext context)
         {
             _orderService = orderervice;
             response = new ResponseDTO();

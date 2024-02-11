@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kitchen.api;
 
-public class SqlserverApplicationContext : DbContext
+public class ApplicationDbContext : DbContext
 {
-    public SqlserverApplicationContext(DbContextOptions options) : base(options)
+    public ApplicationDbContext(DbContextOptions options) : base(options)
     {
 
     }

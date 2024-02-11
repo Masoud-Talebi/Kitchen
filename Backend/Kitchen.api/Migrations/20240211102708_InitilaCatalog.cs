@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Kitchen.api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCatalog : Migration
+    public partial class InitilaCatalog : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +16,13 @@ namespace Kitchen.api.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    svg = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    svg = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,13 +33,13 @@ namespace Kitchen.api.Migrations
                 name: "Foods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Score = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    Score = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,10 +50,10 @@ namespace Kitchen.api.Migrations
                 name: "Settings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserComment = table.Column<int>(type: "int", nullable: false),
-                    PriceForSending = table.Column<double>(type: "float", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserComment = table.Column<int>(type: "integer", nullable: false),
+                    PriceForSending = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,15 +64,15 @@ namespace Kitchen.api.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    deleted = table.Column<bool>(type: "bit", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    deleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,8 +83,8 @@ namespace Kitchen.api.Migrations
                 name: "CategoryFoods",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    FoodId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    FoodId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,12 +107,12 @@ namespace Kitchen.api.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<int>(type: "int", maxLength: 1, nullable: false),
-                    Deccription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Accepted = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Score = table.Column<int>(type: "integer", maxLength: 1, nullable: false),
+                    Deccription = table.Column<string>(type: "text", nullable: false),
+                    Accepted = table.Column<bool>(type: "boolean", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,15 +129,15 @@ namespace Kitchen.api.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalPrice = table.Column<double>(type: "float", nullable: false),
-                    StatePay = table.Column<int>(type: "int", nullable: false),
-                    OrderStatus = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Adress = table.Column<string>(type: "text", nullable: false),
+                    TotalPrice = table.Column<double>(type: "double precision", nullable: false),
+                    StatePay = table.Column<int>(type: "integer", nullable: false),
+                    OrderStatus = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,13 +154,13 @@ namespace Kitchen.api.Migrations
                 name: "OrderItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    FoodId = table.Column<int>(type: "int", nullable: false),
-                    FoodTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    FoodId = table.Column<int>(type: "integer", nullable: false),
+                    FoodTitle = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -7,9 +7,9 @@ namespace Kitchen.api.Application.Services
 {
     public class SettingService : ISettingService
     {
-        private readonly SqlserverApplicationContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public SettingService(SqlserverApplicationContext context, IMapper mapper)
+        public SettingService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

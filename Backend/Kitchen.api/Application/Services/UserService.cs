@@ -13,9 +13,9 @@ public class UserService : IUserService
 {
     #region Field
     private readonly IConfiguration _configuration;
-    private readonly SqlserverApplicationContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
-    public UserService(SqlserverApplicationContext context, IMapper mapper, IConfiguration configuration)
+    public UserService(ApplicationDbContext context, IMapper mapper, IConfiguration configuration)
     {
         _configuration = configuration;
         _context = context;

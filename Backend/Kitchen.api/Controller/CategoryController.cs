@@ -14,8 +14,8 @@ namespace MyApp.Namespace
     {
         private readonly ResponseDTO response;
         private readonly ICategoryService _categoryservice;
-        private readonly SqlserverApplicationContext _context;
-        public CategoryController(ICategoryService categoryservice, SqlserverApplicationContext context)
+        private readonly ApplicationDbContext _context;
+        public CategoryController(ICategoryService categoryservice, ApplicationDbContext context)
         {
             _categoryservice = categoryservice;
             response = new ResponseDTO();

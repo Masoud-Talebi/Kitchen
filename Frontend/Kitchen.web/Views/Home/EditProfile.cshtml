@@ -94,13 +94,36 @@
             <input name="Id" type="text" style="display:none" value="@Model.Id">
             <input placeholder="نام" name="FirstName" type="text" value="@firstName" required>
             <input placeholder="نام خانوادگی" name="LastName" type="text" value="@LastName" required>
-            <input placeholder="شماره تلفن" name="Phone" type="text" value="@Model.Phone" required>
-            <input placeholder="ایمیل" name="Email" type="text" value="@Model.Email">
-            <input placeholder="پسورد" name="Password" type="text" value="@Model.Password" required>
+            <input onchange="phonvalidation()" placeholder="شماره تلفن" name="Phone" id="phone" type="text"
+                value="@Model.Phone" required>
+            <p style="color: red;" id="phonecalidation"></p>
+            <input placeholder="ایمیل" name="Email" type="email" value="@Model.Email">
+            <input placeholder="پسورد" name="Password" type="password" value="@Model.Password" required>
             <textarea placeholder="ادرس" name="Address" type="text" required>@Model.Address </textarea>
 
         </div>
 
-        <p><button type="submit" style="btn_edit">ویرایش پروفایل</button></p>
+        @* <p><button type="submit" id="subformdisablsed" style="btn_edit">ویرایش پروفایل</button></p> *@
+        <button id="subform" type="submit" class="submit-btn"> ویرایش</button>
+        <button style="cursor: default;display: none;background-color: rgb(124, 124, 124);" id="subformdisablsed"
+            disabled class="submit-btn">
+            ویرایش</button>
     </div>
 </form>
+<script>
+    function phonvalidation() {
+        var phone = document.getElementById("phone").value;
+        var regex = new RegExp('^(\\+98|0)?9\\d{9}$');
+        var result = regex.test(phone);
+        if (result != true) {
+            document.getElementById("phonecalidation").innerHTML = "شماره مبایل صحیح نمی باشد";
+            document.getElementById("subform").style.display = "none";
+            document.getElementById("subformdisablsed").style.display = "block"
+        } else {
+            document.getElementById("phonecalidation").innerHTML = "";
+            document.getElementById("subformdisablsed").style.display = "none"
+            document.getElementById("subform").style.display = "block";
+        }
+        console.log(result);
+    }
+</script>

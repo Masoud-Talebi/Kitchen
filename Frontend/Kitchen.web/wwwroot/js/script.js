@@ -26,7 +26,9 @@ function loader(){
 }
 
 function fadeOut(){
-  setInterval(loader, 3000);
+  setInterval(loader, 5);
 }
-
-window.onload = fadeOut();
+$(document).ready(function () {
+  // بارگیری داده‌ها
+  fadeOut();
+});

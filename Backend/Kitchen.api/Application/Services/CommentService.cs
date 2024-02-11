@@ -10,9 +10,9 @@ namespace Kitchen.api.Application.Services
     {
         #region Field
         private readonly IConfiguration _configuration;
-        private readonly SqlserverApplicationContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public CommentService(SqlserverApplicationContext context, IMapper mapper, IConfiguration configuration)
+        public CommentService(ApplicationDbContext context, IMapper mapper, IConfiguration configuration)
         {
             _configuration = configuration;
             _context = context;

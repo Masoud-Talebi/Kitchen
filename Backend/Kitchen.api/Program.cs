@@ -55,8 +55,8 @@ builder.Services.AddAuthentication(x =>
 #endregion
 
 //Rigester Service
-builder.Services.AddScoped<ICategoryService,CategoryService>();
-builder.Services.AddScoped<IFoodService,FoodService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
@@ -64,10 +64,20 @@ builder.Services.AddScoped<ISettingService, SettingService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
-builder.Services.AddDbContextPool<SqlserverApplicationContext>(options =>
+
+#region SqlServer
+builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Kitchencon"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("KitchenconSql"));
 }, poolSize: 16);
+#endregion
+
+#region PostgreSQL
+// builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
+// {
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("KitchenconPostger"));
+// }, poolSize: 16);
+#endregion
 
 var app = builder.Build();
 

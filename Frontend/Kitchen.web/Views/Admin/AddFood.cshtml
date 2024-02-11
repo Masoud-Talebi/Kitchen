@@ -11,17 +11,17 @@
             </p>
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" name="Title" class="form-control form-control-lg" placeholder="Title"
+                <input required type="text" name="Title" class="form-control form-control-lg" placeholder="Title"
                     aria-label="Title">
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <input type="text" name="Description" class="form-control" placeholder="Description"
+                <input required type="text" name="Description" class="form-control" placeholder="Description"
                     aria-label="Description">
             </div>
             <div class="form-group">
                 <label>Image</label>
-                <input type="file" name="Image" class="file-upload-default">
+                <input required type="file" name="Image" class="file-upload-default">
                 <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">
                     <span class="input-group-append">
@@ -32,15 +32,15 @@
             
             <div class="form-group">
                 <label>Price</label>
-                <input type="text" name="Price" class="form-control" placeholder="Price" aria-label="Price">
+                <input required type="text" name="Price" class="form-control" placeholder="Price" aria-label="Price">
             </div>
             <div class="form-group">
                 <label>Score</label>
-                <input type="number" name="Score" class="form-control" placeholder="Score " aria-label="Score">
+                <input required type="number" name="Score" class="form-control" placeholder="Score " aria-label="Score">
             </div>
             <div class="form-group">
                 <label>Categorys</label>
-                <select name="CategoryIds" class="js-example-basic-multiple select2-hidden-accessible" multiple=""
+                <select required name="CategoryIds" class="js-example-basic-multiple select2-hidden-accessible" multiple=""
                     style="width:100%" data-select2-id="4" tabindex="-1" aria-hidden="true">
                     @foreach (var item in (IEnumerable<CategoryDTO>)ViewData["Category"])
                     {

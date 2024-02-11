@@ -9,10 +9,10 @@ namespace Kitchen.api;
 
 public class CategoryService : ICategoryService
 {
-    private readonly SqlserverApplicationContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;
     private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment environment;
-    public CategoryService(IMapper mapper, SqlserverApplicationContext context, Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
+    public CategoryService(IMapper mapper, ApplicationDbContext context, Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
     {
         _context = context;
         _mapper = mapper;

@@ -13,9 +13,9 @@ namespace MyApp.Namespace
     public class CommentController : ControllerBase
     {
         private readonly ResponseDTO response;
-        private readonly SqlserverApplicationContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly ICommentService _commentService;
-        public CommentController(ICommentService commentService, SqlserverApplicationContext context)
+        public CommentController(ICommentService commentService, ApplicationDbContext context)
         {
             response = new ResponseDTO();
             _commentService = commentService;

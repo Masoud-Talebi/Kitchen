@@ -14,8 +14,8 @@ namespace MyApp.Namespace
     {
         private readonly ResponseDTO response;
         private readonly IFoodService _foodService;
-        private readonly SqlserverApplicationContext _context;
-        public FoodController(IFoodService foodService, SqlserverApplicationContext context)
+        private readonly ApplicationDbContext _context;
+        public FoodController(IFoodService foodService, ApplicationDbContext context)
         {
             _foodService = foodService;
             response = new ResponseDTO();
