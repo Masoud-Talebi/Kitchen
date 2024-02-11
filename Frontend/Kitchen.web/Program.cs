@@ -1,12 +1,6 @@
-using Kitchen.web.Services;
-using Kitchen.web.Services.IServices;
-using StackExchange.Redis;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
+#region Rigester Service
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<ISettingService, SettingService>();
@@ -23,11 +17,20 @@ builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IShopingCartService, ShopingCartService>();
 builder.Services.AddScoped<ISettingService, SettingService>();
+#endregion
 
-builder.Services.AddStackExchangeRedisCache(option =>
-{
-    option.Configuration = "localhost:6379";
-});
+builder.Services.AddSingleton<IConnectionMultiplexer>(provider =>
+    {
+        var configuration = provider.GetRequiredService<IConfiguration>();
+        var options = ConfigurationOptions.Parse(configuration.GetConnectionString("RedisCache"));
+        options.Password = "kitchenmasood1384";
+        return ConnectionMultiplexer.Connect(options);
+    });
+
+// builder.Services.AddStackExchangeRedisCache(option =>
+// {
+//     option.Configuration = "localhost:6740";
+// });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
