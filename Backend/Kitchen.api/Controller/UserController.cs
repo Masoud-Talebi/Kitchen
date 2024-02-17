@@ -178,6 +178,26 @@ namespace MyApp.Namespace
             }
             return response;
         }
+        [Authorize]
+        [HttpPost("SetPushToken")]
+        public async Task<object> SetPushToken(string Pushtoken)
+        {
+            try
+            {
+                var user =await _context.Users.FirstOrDefaultAsync(p=>p.Id == int.Parse(User.Identity.Name));
+                user.PushNotifacation = Pushtoken;
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+                response.IsSuccess = true;
+                response.Result = " ";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
+            }
+            return response;
+        }
     }
 
 }

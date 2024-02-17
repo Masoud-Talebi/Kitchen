@@ -15,6 +15,7 @@ namespace Kitchen.api.Models
         public string Password { get; set; }
         public bool deleted { get; set; } = false;
         public string Role { get; set; } = "User";
+        public string? PushNotifacation { get; set; }
 
         //Navigations
         public virtual ICollection<Comment> Comments { get; set; }

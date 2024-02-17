@@ -1,7 +1,12 @@
-﻿using Kitchen.api.Models;
+﻿using FirebaseAdmin;
+using FirebaseAdmin.Messaging;
+using Google.Apis.Auth.OAuth2;
+using Kitchen.api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Numerics;
+using System.Security.Claims;
 
 namespace Kitchen.api.Controller
 {
@@ -13,11 +18,13 @@ namespace Kitchen.api.Controller
         private readonly ResponseDTO response;
         private readonly IOrderService _orderService;
         private readonly ApplicationDbContext _context;
-        public OrderController(IOrderService orderervice, ApplicationDbContext context)
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment environment;
+        public OrderController(IOrderService orderervice, ApplicationDbContext context, Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
         {
             _orderService = orderervice;
             response = new ResponseDTO();
             _context = context;
+            this.environment = environment;
         }
         [Authorize(Roles = "Admin")]
         [HttpGet]
@@ -114,11 +121,26 @@ namespace Kitchen.api.Controller
         }
         [Authorize(Roles = "Admin")]
         [HttpPut("ComplitedOrder")]
-        public async Task<object> ComplitedOrder(int Id,OrderStatus orderStatus)
+        public async Task<object> ComplitedOrder(int Id, OrderStatus orderStatus)
         {
             try
             {
-                var OrderItems = await _orderService.CompliteOrder(Id,orderStatus);
+                var OrderItems = await _orderService.CompliteOrder(Id, orderStatus);
+                var user = await _context.Users.FindAsync(OrderItems.UserId);
+                string firebasepushnotification = environment.WebRootPath + "/FirebaseKey/kitchen-2ca40-firebase-adminsdk-ldjza-a5c67f003a.json";
+                if (orderStatus == OrderStatus.Sending)
+                {
+                    await FireBaseNotifeication.Send("ارسال سفارش", $"سفارش شما با شماره {OrderItems.Id} درحال ارسال است", user.PushNotifacation, firebasepushnotification);
+                }
+                else if (orderStatus == OrderStatus.Failed)
+                {
+                    await FireBaseNotifeication.Send("لغو سفارش", $"سفارش شما با شماره {OrderItems.Id} لغو شد", user.PushNotifacation, firebasepushnotification);
+                }
+                else if (orderStatus == OrderStatus.Complited)
+                {
+                    await FireBaseNotifeication.Send("پایان سفارش", $"سفارش شما با شماره {OrderItems.Id} پایان یافت ", user.PushNotifacation, firebasepushnotification);
+                }
+
                 response.Result = OrderItems;
             }
             catch (Exception ex)
@@ -168,6 +190,18 @@ namespace Kitchen.api.Controller
                     {
                         var OrderItems = await _orderService.PayOrder(Id);
                         response.Result = OrderItems;
+                        #region Firebase Message
+                        //Push Notfication
+                        var user = _context.Users.Where(p => p.deleted == false && p.Role == "Admin");
+                        if (user != null)
+                        {
+                            string firebasepushnotification = environment.WebRootPath + "/FirebaseKey/kitchen-2ca40-firebase-adminsdk-ldjza-a5c67f003a.json";
+                            foreach (var item in user)
+                            {
+                                await FireBaseNotifeication.Send("سفارش جدید", $"سفارشی با شماره {OrderItems.Id} ثبت شد", item.PushNotifacation, firebasepushnotification);
+                            }
+                        }
+                        #endregion
                         return Redirect("http://localhost:5235/Order/OrderRes?OrderId=" + Id);
                     }
                     catch (Exception ex)
@@ -181,42 +215,42 @@ namespace Kitchen.api.Controller
                 {
                     return Redirect("http://localhost:5235/Order/OrderRes?OrderId=" + Id);
                 }
-                
+
             }
             return Redirect("http://localhost:5235/Order/OrderRes?OrderId=" + Id);
 
 
         }
-            [HttpPost("CancelOrder")]
-            public async Task<object> CancelOrder(int Id)
+        [HttpPost("CancelOrder")]
+        public async Task<object> CancelOrder(int Id)
+        {
+            try
             {
-                try
-                {
-                    var OrderItems = await _orderService.CanclOrder(Id, int.Parse(User.Identity.Name));
-                    response.Result = OrderItems;
-                }
-                catch (Exception ex)
-                {
-                    response.IsSuccess = false;
-                    response.ErrorMessage = new List<string> { ex.Message };
-                }
-                return response;
+                var OrderItems = await _orderService.CanclOrder(Id, int.Parse(User.Identity.Name));
+                response.Result = OrderItems;
             }
-            [Authorize(Roles = "Admin")]
-            [HttpDelete]
-            public async Task<object> DeleteOrder(int Id)
+            catch (Exception ex)
             {
-                try
-                {
-                    var OrderItems = await _orderService.DeleteOrder(Id);
-                    response.Result = OrderItems;
-                }
-                catch (Exception ex)
-                {
-                    response.IsSuccess = false;
-                    response.ErrorMessage = new List<string> { ex.Message };
-                }
-                return response;
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
             }
+            return response;
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
+        public async Task<object> DeleteOrder(int Id)
+        {
+            try
+            {
+                var OrderItems = await _orderService.DeleteOrder(Id);
+                response.Result = OrderItems;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.ErrorMessage = new List<string> { ex.Message };
+            }
+            return response;
         }
     }
+}

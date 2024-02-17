@@ -88,7 +88,16 @@ namespace Kitchen.web.Services
                 ApiType = SD.ApiType.GET,
                 Url = SD.KitchenApiBase + "/api/User/GetUserLogined",
                 AccessToken = AccessToken
-            }) ;
+            });
+        }
+        public async Task<T> SetPushToken<T>(string Pushtoken, string AccessToken)
+        {
+            return await this.Send<T>(new ApiRequest
+            {
+                ApiType = SD.ApiType.POST,
+                Url = SD.KitchenApiBase + "/api/User/SetPushToken?Pushtoken=" + Pushtoken,
+                AccessToken = AccessToken
+            });
         }
 
     }

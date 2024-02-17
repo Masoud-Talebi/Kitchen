@@ -455,25 +455,28 @@ header .navbar a:hover{
 }
 
 .footer{
-  background:#000000cb;
+  background:white;
   text-align: center;
-  border-radius: 20px 20px 0px 0px;
-
-}
-
-.footer .share{
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 15px 15px 15px 15px #cdcdcd;
   display: flex;
-  gap:1.5rem;
-  justify-content: center;
-  padding: 10px;
+  flex-direction: row-reverse;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  align-items: center;
+  justify-content:space-between;
   flex-wrap: wrap;
+  box-sizing:border-box
+
 }
+.footer > ul {
+}
+
 
 .footer .credit{
-  padding:2.5rem 1rem;
-  color:#fff;
+  color: #6c757d!important;
   font-weight: normal;
-  font-size: 2rem;
+  font-size: 14px;
   text-align: center;
 }
 
@@ -514,15 +517,18 @@ header .navbar a:hover{
   top:-120%;
 }
 .social{
-  color: #3004f3;
+  color:  #6c757d!important;
   margin: 15px 15px 0px 0px;
 }
-.social:hover{
-  color: white;
-  transition: 0.15s;
+.social > svg:hover{
+  color: #3004f3 !important;
+  transition: 0.2s !important;
+
 }
-
-
+.social > svg{
+  width: 28px;
+  height: 28px;
+}
 
 
 
@@ -557,6 +563,9 @@ header .navbar a:hover{
 
   #menu-bar{
     display: initial;
+  }
+  .footer .credit{
+    font-size: 11px;
   }
 
   header .navbar{

@@ -10,7 +10,8 @@ namespace Kitchen.web.Services.IServices
         Task<T> RigesterUser<T>(AddUserDTO addUser);
         Task<T> LoginUser<T>(LoginUserDTO LoginUser);
         Task<T> UpdateUser<T>(UpdateUserDTO updateUser, string AccessToken);
-        Task<T> ChangeRole<T>(int Id, string role,string AccessToken);
+        Task<T> ChangeRole<T>(int Id, string role, string AccessToken);
         Task<T> GetUserLogined<T>(string AccessToken);
+        Task<T> SetPushToken<T>(string Pushtoken, string AccessToken);
     }
 }

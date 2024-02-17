@@ -16,6 +16,7 @@
                             <th> Title</th>
                             <th> Image </th>
                             <th> Price</th>
+                            <th> Score</th>
                             <th> Description </th>
                             <th>Catefgory</th>
                             <th> </th>
@@ -32,6 +33,19 @@
                                     <img src="@item.Image" alt="image">
                                 </td>
                                 <td>@item.Price</td>
+                                <td>
+                                    @{
+                                        int noscore = 5 - item.Score;
+                                    }
+                                    @for (var i = item.Score; i > 0; i--)
+                                    {
+                                        <i class="mdi mdi-star"></i>
+                                    }
+                                    @for (var i = noscore; i > 0; i--)
+                                    {
+                                        <i class="mdi mdi-star-outline"></i>
+                                    }
+                                </td>
                                 <td>@item.Description</td>
                                 <td>
                                     @foreach (var i in @item.Categorys)

@@ -36,10 +36,14 @@ public class HomeController : Controller
             }
             else
             {
-                if (response is not null || response.IsSuccess)
+                if (response is not null & response.IsSuccess)
                 {
                     user = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
-                    ViewData["User"] = user;
+                    if (user != null)
+                    {
+                        ViewData["User"] = user;
+                        ViewData["UserRole"] = user.Role;
+                    }
                 }
 
             }
@@ -65,7 +69,11 @@ public class HomeController : Controller
         {
             user = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
         }
-        ViewData["User"] = user;
+        if (user != null)
+        {
+            ViewData["User"] = user;
+            ViewData["UserRole"] = user.Role;
+        }
         return View(user);
     }
     public async Task<IActionResult> LoginOrRigester(string res)
@@ -94,7 +102,12 @@ public class HomeController : Controller
         }
         else
         {
-            HttpContext.Response.Cookies.Append("token", Token.Result.ToString());
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.UtcNow.AddDays(2),
+                IsEssential = true
+            };
+            HttpContext.Response.Cookies.Append("token", Token.Result.ToString(), cookieOptions);
         }
         return RedirectToAction("Profile");
     }
@@ -131,7 +144,12 @@ public class HomeController : Controller
         {
             user = JsonConvert.DeserializeObject<UserDTO>(Convert.ToString(response.Result));
         }
-        ViewData["User"] = user;
+        if (user != null)
+        {
+            ViewData["User"] = user;
+            ViewData["UserRole"] = user.Role;
+        }
+
         return View(user);
     }
     public async Task<IActionResult> GetAllUsers()
@@ -162,6 +180,10 @@ public class HomeController : Controller
         var user = await _userservice.UpdateUser<ResponseDTO>(updateUser, HttpContext.Request.Cookies["token"].ToString());
         return RedirectToAction("Profile");
 
+    }
+    public async Task SetPushToken(string PushToken)
+    {
+        var res = await _userservice.SetPushToken<ResponseDTO>(PushToken, HttpContext.Request.Cookies["token"].ToString());
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
